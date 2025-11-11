@@ -7,37 +7,9 @@ from my_constants import ALPACA_TEMPLATE, max_seq_length, load_in_4bit, dtype, m
 from unsloth import FastLanguageModel
 from trl import SFTConfig, SFTTrainer
 
-
-# end_of_string_token = tokenizer.eos_token # Must add EOS_TOKEN
-# dataset = load_dataset("yahma/alpaca-cleaned", split = "train")
 with open('./dataset_files/denmark_large.json') as json_data_file:
     data_dict = json.load(json_data_file)
 print(type(data_dict))
-
-# from unsloth import to_sharegpt
-# print(dataset.column_names)
-#
-# dataset_sharegpt = to_sharegpt(
-#     dataset,
-#     merged_prompt="{instruction}[[\nYour input is:\n{input}]]",
-#     output_column_name="output",
-#     conversation_extension=3,  # Select more to handle longer conversations
-# )
-# print(dataset_sharegpt.column_names)
-# print(dataset_sharegpt['conversations'][12])
-
-# from unsloth import standardize_sharegpt
-# dataset_standard = standardize_sharegpt(dataset=mikes_dataset)
-# print(dataset_standard.column_names)
-# print(dataset_standard['conversations'][12])
-# chat_template = """Below are some instructions that describe some tasks. Write responses that appropriately complete each request.
-# ### Instruction:
-# {INPUT}
-#
-# ### Response:
-# {OUTPUT}"""
-
-from unsloth import apply_chat_template
 
 model, tokenizer = FastLanguageModel.from_pretrained(
     model_name = model_name,
@@ -64,15 +36,6 @@ end_of_string_token = tokenizer.eos_token
 mikes_dataset_dict = formatting_prompts_to_alpaca_mikes_data(data_dict, end_of_string_token)
 mikes_dataset = Dataset.from_dict(mikes_dataset_dict)
 print(f"mikes columns: {mikes_dataset.column_names}")
-
-# dataset_templated = apply_chat_template(
-#     dataset_standard,
-#     tokenizer=tokenizer,
-#     chat_template=chat_template,
-#     # default_system_message = "You are a helpful assistant", << [OPTIONAL]
-# )
-# print(dataset_templated.column_names)
-# print(dataset_templated['text'][12])
 
 trainer = SFTTrainer(
     model=model,

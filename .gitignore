@@ -1,6 +1,9 @@
-/lora_mike/
+lora_mike/
 /lora_model/
+lora_mike_gguf/
 /lora_model_chatml/
 /outputs/
 /unsloth_compiled_cache/
 .idea
+llama.cpp/
+*.gguf

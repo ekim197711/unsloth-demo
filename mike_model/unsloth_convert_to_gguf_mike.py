@@ -13,5 +13,5 @@ model, tokenizer = FastLanguageModel.from_pretrained(
 )
 # print(tokenizer._ollama_modelfile)
 model.save_pretrained_gguf("lora_mike_gguf", tokenizer, quantization_method = "q4_k_m")
-# model.push_to_hub_gguf("ekim197711/lora_mike", token=os.environ['HF_TOKEN']) # Online saving
-# tokenizer.push_to_hub_gguf("ekim197711/lora_mike", token=os.environ['HF_TOKEN']) # Online saving
+# model.push_to_hub("ekim197711/lora_mike", token=os.environ['HF_TOKEN']) # Online saving
+# tokenizer.push_to_hub("ekim197711/lora_mike", token=os.environ['HF_TOKEN']) # Online saving
